@@ -334,7 +334,7 @@ MonoBehaviour:
   height: 80
   obstaclesDensity: 0.1
   obstaclePrefabs:
-  - {fileID: 1445399507387934445, guid: 9240d835dd91fe747b6edc26cad15ae7, type: 3}
+  - {fileID: -8632311258149431227, guid: 9240d835dd91fe747b6edc26cad15ae7, type: 3}
 --- !u!23 &1707211209
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -354,7 +354,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b56cc77f31746a4439ebea12ff4dd9bc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

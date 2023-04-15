@@ -13,7 +13,7 @@ public class World : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] private float obstaclesDensity = 0.1f;
 
-    [SerializeField] private List<GameObject> obstaclePrefabs;
+    [SerializeField] private List<Obstacle> obstaclePrefabs;
 
     public static World singleton { get; private set; }
 
@@ -56,5 +56,10 @@ public class World : MonoBehaviour
     public Vector3 GridToWorld(int x, int y)
     {
         return new Vector3(x - width / 2 + 0.5f, 0, y - height / 2 + 0.5f);
+    }
+
+    public Vector2 WorldToGrid(Vector3 pos)
+    {
+        return new Vector2(pos.x - 0.5f + width / 2, pos.y - 0.5f + height / 2);
     }
 }
