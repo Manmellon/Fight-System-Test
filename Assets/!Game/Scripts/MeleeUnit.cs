@@ -9,18 +9,6 @@ public class MeleeUnit : FightingUnit
     //We use it to damage only targets in front, and not behind of attacking unit
     [SerializeField] protected float _meleeAttackCenterDistance;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void Attack()
     {
         base.Attack();

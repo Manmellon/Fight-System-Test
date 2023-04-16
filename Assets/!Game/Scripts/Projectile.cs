@@ -8,15 +8,11 @@ public class Projectile : Entity
 
     [SerializeField] protected FightingUnit _owner;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         Vector2Int gridPos = World.singleton.WorldToGrid(transform.position);
         List<Entity> entities = World.singleton.GetNearestEntites(gridPos.x, gridPos.y);
 

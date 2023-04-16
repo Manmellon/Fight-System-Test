@@ -15,20 +15,22 @@ public class FightingUnit : Entity
 
     [SerializeField] protected float randomMovementRadius = 5;
 
-    protected Entity attackTarget;
-    protected Vector3 movementTarget;
+    [SerializeField] protected Entity attackTarget;
+    [SerializeField] protected Vector3 movementTarget;
 
-    protected List<Vector3> wayPoints = new List<Vector3>();
+    [SerializeField] protected List<Vector3> wayPoints = new List<Vector3>();
 
     [SerializeField] protected float _stoppingDistance = 0.1f;
 
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         attackTarget = FindNearestEnemy();
 
         if (attackTarget == null)

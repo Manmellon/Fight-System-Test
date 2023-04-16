@@ -23,7 +23,7 @@ public class Entity : MonoBehaviour
     public float CurHealth => _currentHealth;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         _currentHealth = _maxHealth;
 
@@ -31,12 +31,12 @@ public class Entity : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         transform.position += transform.forward * _movingSpeed * Time.fixedDeltaTime;
     }
@@ -56,5 +56,8 @@ public class Entity : MonoBehaviour
 
         if (_deathParticles)
             _deathParticles.Play();
+
+        World.singleton.RemoveEntity(this);
+        Destroy(gameObject);
     }
 }
