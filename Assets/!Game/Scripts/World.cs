@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using EpPathFinding.cs;
 
+public struct Chunk
+{
+    public List<Entity> entities;
+}
+
+//Struct to store entity pos to not calc it 2 times in update
+public struct EntityWithPos
+{
+    public Entity entity;
+    public Vector2Int gridPos;
+}
+
 public class World : MonoBehaviour
 {
     private StaticGrid searchGrid;
@@ -14,6 +26,8 @@ public class World : MonoBehaviour
     [SerializeField] private float obstaclesDensity = 0.1f;
 
     [SerializeField] private List<Obstacle> obstaclePrefabs;
+
+    private Chunk[,] chunks;
 
     public static World singleton { get; private set; }
 
@@ -31,11 +45,44 @@ public class World : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                List<EntityWithPos> updatedEntities = new List<EntityWithPos>();
+
+                //Create list of entites changing chunk
+                for (int k = 0; k < chunks[i, j].entities.Count; k++)
+                {
+                    Vector2Int gridPos = WorldToGrid(chunks[i, j].entities[k].transform.position);
+                    if (gridPos.x != j && gridPos.y != i)
+                    {
+                        EntityWithPos ep = new EntityWithPos();
+                        ep.entity = chunks[i, j].entities[k];
+                        ep.gridPos = gridPos;
+                        updatedEntities.Add(ep);
+                    }
+                }
+
+                //Remove from old chunks
+                foreach (var ep in updatedEntities)
+                {
+                    chunks[i, j].entities.Remove(ep.entity);
+                }
+
+                //Add to new chunk
+                foreach (var ep in updatedEntities)
+                {
+                    chunks[ep.gridPos.y, ep.gridPos.x].entities.Add(ep.entity);
+                }
+            }
+        }
     }
 
     public void Init()
     {
+        chunks = new Chunk[height, width];
+
         searchGrid = new StaticGrid(width, height);
 
         for (int i = 0; i < height; i++)
@@ -53,13 +100,30 @@ public class World : MonoBehaviour
         }
     }
 
+    public void AddEntity(Entity entity)
+    {
+        Vector2Int gridPos = WorldToGrid(entity.transform.position);
+        chunks[gridPos.y, gridPos.x].entities.Add(entity);
+    }
+
+    public void RemoveEntity(Entity entity)
+    {
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                chunks[i, j].entities.Remove(entity);
+            }
+        }
+    }
+
     public Vector3 GridToWorld(int x, int y)
     {
         return new Vector3(x - width / 2 + 0.5f, 0, y - height / 2 + 0.5f);
     }
 
-    public Vector2 WorldToGrid(Vector3 pos)
+    public Vector2Int WorldToGrid(Vector3 pos)
     {
-        return new Vector2(pos.x - 0.5f + width / 2, pos.y - 0.5f + height / 2);
+        return new Vector2Int(Mathf.FloorToInt(pos.x - 0.5f + width / 2), Mathf.FloorToInt(pos.y - 0.5f + height / 2));
     }
 }
