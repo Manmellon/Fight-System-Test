@@ -43,9 +43,20 @@ public class FightingUnit : Entity
         }
         else
         {
-            //Move to enemy
             movementTarget = attackTarget.transform.position;
-            wayPoints = GenerateWayPoints(movementTarget);
+
+            if (Vector3.Distance(transform.position, movementTarget) <= _attackRange)
+            {
+                transform.LookAt(attackTarget.transform);
+                Attack();
+                wayPoints.Clear();
+                return;
+            }
+            //Move to enemy
+            else
+            {
+                wayPoints = GenerateWayPoints(movementTarget);
+            }
         }
 
         if (wayPoints.Count == 0) return;
