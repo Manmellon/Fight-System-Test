@@ -45,16 +45,16 @@ public class FightingUnit : Entity
         {
             movementTarget = attackTarget.transform.position;
 
-            if (Vector3.Distance(transform.position, movementTarget) <= _attackRange)
+            if (IsAggro())
             {
                 transform.LookAt(attackTarget.transform);
                 Attack();
                 wayPoints.Clear();
                 return;
             }
-            //Move to enemy
             else
             {
+                //Move to enemy
                 wayPoints = GenerateWayPoints(movementTarget);
             }
         }
@@ -86,6 +86,8 @@ public class FightingUnit : Entity
 
     public virtual void Attack()
     {
+        if (Time.time < _prevAttackTime + _attackCooldown) return;
+
         _prevAttackTime = Time.time;
 
         if (_animator)
@@ -130,5 +132,10 @@ public class FightingUnit : Entity
         }
 
         return result;
+    }
+
+    public virtual bool IsAggro()
+    {
+        return Vector3.Distance(transform.position, movementTarget) <= _attackRange;
     }
 }

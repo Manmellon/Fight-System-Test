@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1445399507387934443}
   - component: {fileID: -8632311258149431227}
   m_Layer: 0
-  m_Name: Rock[Sphere]
+  m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,3 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf53724b3c64624386b7124ce355655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
+  _deathParticles: {fileID: 0}
+  _radius: 0.5
+  _movingSpeed: 0
+  _maxHealth: 0
+  _currentHealth: 0

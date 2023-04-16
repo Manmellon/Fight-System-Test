@@ -38,4 +38,9 @@ public class MeleeUnit : FightingUnit
             }
         }
     }
+
+    public override bool IsAggro()
+    {
+        return Vector3.Distance(attackTarget.transform.position, transform.position + transform.forward * _meleeAttackCenterDistance) <= attackTarget.Radius + _attackRange;
+    }
 }
