@@ -18,6 +18,7 @@ public struct EntityWithPos
 public class World : MonoBehaviour
 {
     private StaticGrid searchGrid;
+    public StaticGrid SearchGrid => searchGrid;
 
     [SerializeField] private int width = 80;
     [SerializeField] private int height = 80;
@@ -36,13 +37,11 @@ public class World : MonoBehaviour
         if (singleton == null) singleton = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Init();
     }
 
-    // Update is called once per frame
     void Update()
     {
         for (int i = 0; i < height; i++)
@@ -100,7 +99,7 @@ public class World : MonoBehaviour
                 float r = Random.Range(0.0f, 1.0f);
                 bool hasObstacle = r < obstaclesDensity || obstaclesDensity >= 1.0f;
 
-                searchGrid.SetWalkableAt(j, i, hasObstacle);
+                searchGrid.SetWalkableAt(j, i, !hasObstacle);
 
                 if (hasObstacle)
                     Instantiate(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Count)], GridToWorld(j, i), Quaternion.identity);
@@ -140,6 +139,7 @@ public class World : MonoBehaviour
         return entities;
     }
 
+    //Get entities from current chunk, and all neighbours chunks
     public List<Entity> GetNearestEntites(int gridX, int gridY)
     {
         if (gridX < 0 || gridX >= width || gridY < 0 || gridY >= height) return null;

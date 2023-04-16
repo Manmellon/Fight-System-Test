@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EpPathFinding.cs;
 
 public class FightingUnit : Entity
 {
@@ -12,16 +13,59 @@ public class FightingUnit : Entity
 
     [SerializeField] protected float _attackRange;
 
-    // Start is called before the first frame update
+    [SerializeField] protected float randomMovementRadius = 5;
+
+    protected Entity attackTarget;
+    protected Vector3 movementTarget;
+
+    protected List<Vector3> wayPoints = new List<Vector3>();
+
+    [SerializeField] protected float _stoppingDistance = 0.1f;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        attackTarget = FindNearestEnemy();
+
+        if (attackTarget == null)
+        {
+            if (wayPoints.Count == 0)
+            {
+                //Choose random destination
+                Vector2 randomPointInCircle = Random.insideUnitCircle * randomMovementRadius;
+                movementTarget = transform.position + new Vector3(randomPointInCircle.x, 0, randomPointInCircle.y);
+                wayPoints = GenerateWayPoints(movementTarget);
+            }
+        }
+        else
+        {
+            //Move to enemy
+            movementTarget = attackTarget.transform.position;
+            wayPoints = GenerateWayPoints(movementTarget);
+        }
+
+        if (wayPoints.Count == 0) return;
+
+        Vector3 currentMovementTarget;
+        if (wayPoints.Count == 1) //When we are already in target cell
+        {
+            currentMovementTarget = wayPoints[0];
+        }
+        else
+        {
+            currentMovementTarget = wayPoints[1];
+        }
+
+        transform.LookAt(currentMovementTarget);
+
+        if (Vector3.Distance(transform.position, movementTarget) <= _stoppingDistance)
+        {
+            wayPoints.Clear();
+        }
     }
 
     public void Init(int team)
@@ -51,8 +95,27 @@ public class FightingUnit : Entity
                 )
             {
                 result = e;
-                minDistance = Vector3.Distance(transform.position, result.transform.position)
+                minDistance = Vector3.Distance(transform.position, result.transform.position);
             }
+        }
+
+        return result;
+    }
+
+    public List<Vector3> GenerateWayPoints(Vector3 target)
+    {
+        List<Vector3> result = new List<Vector3>();
+
+        Vector2Int gridPos = World.singleton.WorldToGrid(transform.position);
+        Vector2Int targetGridPos = World.singleton.WorldToGrid(target);
+
+        JumpPointParam jpParam = new JumpPointParam(World.singleton.SearchGrid, new GridPos(gridPos.x, gridPos.y), new GridPos(targetGridPos.x, targetGridPos.y), 
+                                                    EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.IfAtLeastOneWalkable);
+        List<GridPos> gridPositions = JumpPointFinder.FindPath(jpParam);
+
+        foreach (var gp in gridPositions)
+        {
+            result.Add( World.singleton.GridToWorld(gp.x, gp.y) );
         }
 
         return result;

@@ -31,7 +31,12 @@ public class Entity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * _movingSpeed;
+        
+    }
+
+    void FixedUpdate()
+    {
+        transform.position += transform.forward * _movingSpeed * Time.fixedDeltaTime;
     }
 
     public void DealDamage(float damage)
