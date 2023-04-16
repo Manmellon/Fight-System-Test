@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class FightingUnit : Entity
 {
-    [SerializeField] private int _team;
+    [SerializeField] protected int _team;
     public int Team => _team;
 
-    [SerializeField] private float attackDuration;
-    [SerializeField] private float attackRange;
+    [SerializeField] protected float _attackCooldown;
+    protected float _prevAttackTime;
+
+    [SerializeField] protected float _attackRange;
 
     // Start is called before the first frame update
     void Start()
@@ -25,5 +27,13 @@ public class FightingUnit : Entity
     public void Init(int team)
     {
         _team = team;
+    }
+
+    public virtual void Attack()
+    {
+        _prevAttackTime = Time.time;
+
+        if (_animator)
+            _animator.Play("Attack");
     }
 }

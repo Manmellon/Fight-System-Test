@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RangeUnit : FightingUnit
 {
-    [SerializeField] private Projectile _projectilePrefab;
+    [SerializeField] protected Projectile _projectilePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +18,10 @@ public class RangeUnit : FightingUnit
         
     }
 
-    public void Shoot()
+    public override void Attack()
     {
+        base.Attack();
+
         Projectile projectile = Instantiate(_projectilePrefab, transform.position, Quaternion.Euler(transform.forward));
         projectile.Init(this);
     }

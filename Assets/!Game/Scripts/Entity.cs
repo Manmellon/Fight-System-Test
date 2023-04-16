@@ -5,19 +5,21 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] Animator _animator;
-    [SerializeField] ParticleSystem _deathParticles;
+    [SerializeField] protected Animator _animator;
+
+    [SerializeField] protected ParticleSystem _deathParticles;
 
     [Header("Settings")]
-    [SerializeField] private float _radius;
+    [SerializeField] protected float _radius;
     public float Radius => _radius;
 
-    [SerializeField] private float movingSpeed;
+    [SerializeField] protected float _movingSpeed;
+    public float MovingSpeed => _movingSpeed;
 
-    [SerializeField] private float _maxHealth;
+    [SerializeField] protected float _maxHealth;
     public float MaxHealth => _maxHealth;
 
-    [SerializeField] private float _currentHealth;
+    [SerializeField] protected float _currentHealth;
     public float CurHealth => _currentHealth;
 
     // Start is called before the first frame update
@@ -29,7 +31,7 @@ public class Entity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * movingSpeed;
+        transform.position += transform.forward * _movingSpeed;
     }
 
     public void DealDamage(float damage)

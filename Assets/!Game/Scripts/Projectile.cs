@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Projectile : Entity
 {
-    [SerializeField] private float _projectileDamage;
+    [SerializeField] protected float _projectileDamage;
 
-    [SerializeField] private FightingUnit _owner;
+    [SerializeField] protected FightingUnit _owner;
 
     // Start is called before the first frame update
     void Start()
