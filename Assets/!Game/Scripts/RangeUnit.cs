@@ -17,4 +17,10 @@ public class RangeUnit : FightingUnit
     {
         
     }
+
+    public void Shoot()
+    {
+        Projectile projectile = Instantiate(_projectilePrefab, transform.position, Quaternion.Euler(transform.forward));
+        projectile.Init(this);
+    }
 }

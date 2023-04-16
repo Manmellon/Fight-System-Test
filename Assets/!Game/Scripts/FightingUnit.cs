@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FightingUnit : Entity
 {
+    [SerializeField] private int _team;
+    public int Team => _team;
+
     [SerializeField] private float attackDuration;
     [SerializeField] private float attackRange;
 
@@ -17,5 +20,10 @@ public class FightingUnit : Entity
     void Update()
     {
         
+    }
+
+    public void Init(int team)
+    {
+        _team = team;
     }
 }
