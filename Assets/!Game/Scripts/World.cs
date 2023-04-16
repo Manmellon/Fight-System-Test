@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EpPathFinding.cs;
 
-public struct Chunk
+public class Chunk
 {
     public List<Entity> entities;
 }
@@ -82,6 +82,14 @@ public class World : MonoBehaviour
     public void Init()
     {
         chunks = new Chunk[height, width];
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                chunks[i, j] = new Chunk();
+                chunks[i, j].entities = new List<Entity>();
+            }
+        }
 
         searchGrid = new StaticGrid(width, height);
 
