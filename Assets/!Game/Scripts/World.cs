@@ -125,6 +125,45 @@ public class World : MonoBehaviour
         }
     }
 
+    public List<Entity> GetNearestEntites(int gridX, int gridY)
+    {
+        if (gridX < 0 || gridX >= width || gridY < 0 || gridY >= height) return null;
+
+        List<Entity> entities = new List<Entity>();
+
+        if (gridX > 0)
+        {
+            if (gridY > 0)
+                entities.AddRange(chunks[gridY - 1, gridX - 1].entities);
+
+            entities.AddRange(chunks[gridY, gridX - 1].entities);
+
+            if (gridY < height - 1)
+                entities.AddRange(chunks[gridY + 1, gridX - 1].entities);
+        }
+
+        if (gridX < width - 1)
+        {
+            if (gridY > 0)
+                entities.AddRange(chunks[gridY - 1, gridX + 1].entities);
+
+            entities.AddRange(chunks[gridY, gridX + 1].entities);
+
+            if (gridY < height - 1)
+                entities.AddRange(chunks[gridY + 1, gridX + 1].entities);
+        }
+
+        if (gridY > 0)
+            entities.AddRange(chunks[gridY - 1, gridX].entities);
+
+        entities.AddRange(chunks[gridY, gridX].entities);
+
+        if (gridY < height - 1)
+            entities.AddRange(chunks[gridY + 1, gridX].entities);
+
+        return entities;
+    }
+
     public Vector3 GridToWorld(int x, int y)
     {
         return new Vector3(x - width / 2 + 0.5f, 0, y - height / 2 + 0.5f);
