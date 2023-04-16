@@ -36,4 +36,25 @@ public class FightingUnit : Entity
         if (_animator)
             _animator.Play("Attack");
     }
+
+    public Entity FindNearestEnemy()
+    {
+        Entity result = null;
+        float minDistance = 1_000_000_000;
+
+        List<Entity> entities = World.singleton.GetAllEntities();
+
+        foreach (var e in entities)
+        {
+            if (e is FightingUnit fu && fu.Team != Team && 
+                (result == null || Vector3.Distance(transform.position, e.transform.position) < minDistance) 
+                )
+            {
+                result = e;
+                minDistance = Vector3.Distance(transform.position, result.transform.position)
+            }
+        }
+
+        return result;
+    }
 }

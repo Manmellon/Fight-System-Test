@@ -5,6 +5,8 @@ using UnityEngine;
 public class MeleeUnit : FightingUnit
 {
     [SerializeField] protected float _meleeDamage;
+
+    //We use it to damage only targets in front, and not behind of attacking unit
     [SerializeField] protected float _meleeAttackCenterDistance;
 
     // Start is called before the first frame update

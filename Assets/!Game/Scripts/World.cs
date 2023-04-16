@@ -125,6 +125,21 @@ public class World : MonoBehaviour
         }
     }
 
+    public List<Entity> GetAllEntities()
+    {
+        List<Entity> entities = new List<Entity>();
+
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                entities.AddRange(chunks[i, j].entities);
+            }
+        }
+
+        return entities;
+    }
+
     public List<Entity> GetNearestEntites(int gridX, int gridY)
     {
         if (gridX < 0 || gridX >= width || gridY < 0 || gridY >= height) return null;
