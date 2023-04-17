@@ -6,7 +6,7 @@ public class RangeUnit : FightingUnit
 {
     [SerializeField] protected Projectile _projectilePrefab;
 
-    public override void Attack()
+    protected override void Attack()
     {
         base.Attack();
 

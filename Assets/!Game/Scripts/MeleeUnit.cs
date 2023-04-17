@@ -9,7 +9,7 @@ public class MeleeUnit : FightingUnit
     //We use it to damage only targets in front, and not behind of attacking unit
     [SerializeField] protected float _meleeAttackCenterDistance;
 
-    public override void Attack()
+    protected override void Attack()
     {
         base.Attack();
 

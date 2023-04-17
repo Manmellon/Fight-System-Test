@@ -9,7 +9,7 @@ public class FightingUnit : Entity
     public int Team => _team;
 
     [SerializeField] protected float _attackCooldown;
-    protected float _prevAttackTime;
+    [SerializeField] protected float _prevAttackTime;
 
     [SerializeField] protected float _attackRange;
 
@@ -50,7 +50,7 @@ public class FightingUnit : Entity
             if (IsAggro())
             {
                 transform.LookAt(attackTarget.transform);
-                Attack();
+                TryAttack();
                 wayPoints.Clear();
                 return;
             }
@@ -86,10 +86,19 @@ public class FightingUnit : Entity
         _team = team;
     }
 
-    public virtual void Attack()
+    public void TryAttack()
     {
-        if (Time.time < _prevAttackTime + _attackCooldown) return;
+        if (CanAttack())
+            Attack();
+    }
 
+    public bool CanAttack()
+    {
+        return Time.time >= _prevAttackTime + _attackCooldown;
+    }
+
+    protected virtual void Attack()
+    {
         _prevAttackTime = Time.time;
 
         if (_animator)
