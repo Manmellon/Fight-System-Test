@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class MeleeUnit : FightingUnit
 {
-    [SerializeField] protected float _meleeDamage;
-
     //We use it to damage only targets in front, and not behind of attacking unit
     [SerializeField] protected float _meleeAttackCenterDistance;
 
@@ -21,7 +19,7 @@ public class MeleeUnit : FightingUnit
 
             if (e.CurHealth > 0 && Vector3.Distance(e.transform.position, transform.position + transform.forward * _meleeAttackCenterDistance) <= e.Radius + _attackRange)
             {
-                e.DealDamage(_meleeDamage);
+                e.DealDamage(_attackDamage);
             }
         }
     }

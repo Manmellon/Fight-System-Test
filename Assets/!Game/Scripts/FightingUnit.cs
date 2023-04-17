@@ -7,6 +7,9 @@ public class FightingUnit : Entity
     [SerializeField] protected int _team;
     public int Team => _team;
 
+    [SerializeField] protected float _attackDamage;
+    public float AttackDamage => _attackDamage;
+
     [SerializeField] protected float _attackCooldown;
     protected float _prevAttackTime;
 

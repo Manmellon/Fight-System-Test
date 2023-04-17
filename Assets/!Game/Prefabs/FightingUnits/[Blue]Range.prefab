@@ -233,15 +233,11 @@ MonoBehaviour:
   _radius: 0.25
   _movingSpeed: 1
   _maxHealth: 3
-  _currentHealth: 3
   _team: 1
+  _attackDamage: 1
   _attackCooldown: 1
-  _prevAttackTime: 0
   _attackRange: 5
   randomMovementRadius: 5
-  attackTarget: {fileID: 0}
-  movementTarget: {x: 0, y: 0, z: 0}
-  wayPoints: []
   _stoppingDistance: 0.1
   _projectilePrefab: {fileID: 4931430843185618925, guid: 4e474e9fee8713b4eb720269177660b0, type: 3}
   shootPlace: {fileID: 6453847162107903129}

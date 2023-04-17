@@ -232,15 +232,10 @@ MonoBehaviour:
   _radius: 0.25
   _movingSpeed: 1
   _maxHealth: 5
-  _currentHealth: 3
   _team: 0
+  _attackDamage: 1
   _attackCooldown: 1
-  _prevAttackTime: 0
   _attackRange: 0.5
   randomMovementRadius: 5
-  attackTarget: {fileID: 0}
-  movementTarget: {x: 0, y: 0, z: 0}
-  wayPoints: []
   _stoppingDistance: 0.1
-  _meleeDamage: 1
   _meleeAttackCenterDistance: 0.25
