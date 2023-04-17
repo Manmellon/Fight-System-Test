@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using Newtonsoft;
 
 public class ConfigSerializer : MonoBehaviour
 {
