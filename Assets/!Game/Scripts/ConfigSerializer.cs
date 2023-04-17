@@ -11,35 +11,24 @@ public class ConfigSerializer : MonoBehaviour
 
     private JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
-    // Start is called before the first frame update
     void Start()
     {
-        //SaveConfig();
+        if (!File.Exists("config.json"))
+        {
+            SaveConfig();
+        }
         LoadConfig();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SaveConfig()
     {
         using (StreamWriter writer = new StreamWriter("config.json"))
         {
-            /*string s = "";
-            for (int i = 0; i < entities.Length; i++)
-            {
-                s += (i>0 ? "," : "") + entities[i].Serialize();
-            }
-            writer.WriteLine("[" + s + "]");*/
             SerializedEntity[] serializedEntities = new SerializedEntity[entities.Length];
             for (int i = 0; i < entities.Length; i++)
             {
                 serializedEntities[i] = entities[i].Serialize();
             }
-            //writer.WriteLine(JsonHelper.ToJson(serializedEntities, true));
             writer.WriteLine(JsonConvert.SerializeObject(serializedEntities, Formatting.Indented, settings));
         }
     }
