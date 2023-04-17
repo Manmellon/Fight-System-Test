@@ -51,6 +51,7 @@ public class FightingUnit : Entity
                 transform.LookAt(attackTarget.transform);
                 TryAttack();
                 wayPoints.Clear();
+                _currentSpeed = 0;
                 return;
             }
             else
@@ -73,6 +74,7 @@ public class FightingUnit : Entity
         }
 
         transform.LookAt(currentMovementTarget);
+        _currentSpeed = _movingSpeed;
 
         if (Vector3.Distance(transform.position, movementTarget) <= _stoppingDistance)
         {

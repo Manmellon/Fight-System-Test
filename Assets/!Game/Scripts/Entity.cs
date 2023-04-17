@@ -14,6 +14,8 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float _movingSpeed;
     public float MovingSpeed => _movingSpeed;
 
+    protected float _currentSpeed;
+
     [SerializeField] protected float _maxHealth;
     public float MaxHealth => _maxHealth;
 
@@ -23,6 +25,7 @@ public class Entity : MonoBehaviour
     protected virtual void Start()
     {
         _currentHealth = _maxHealth;
+        _currentSpeed = _movingSpeed;
 
         World.singleton.AddEntity(this);
     }
@@ -33,7 +36,7 @@ public class Entity : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        transform.position += transform.forward * _movingSpeed * Time.fixedDeltaTime;
+        transform.position += transform.forward * _currentSpeed * Time.fixedDeltaTime;
     }
 
     public void DealDamage(float damage)
