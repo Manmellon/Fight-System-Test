@@ -24,6 +24,9 @@ public class FightingUnit : Entity
 
     [SerializeField] protected float _stoppingDistance = 0.1f;
 
+    private float searchTargetCooldown = 10.0f;
+    private float prevSearchTime;
+
     protected override void Start()
     {
         base.Start();
@@ -33,7 +36,9 @@ public class FightingUnit : Entity
     {
         base.Update();
 
-        attackTarget = FindNearestEnemy();
+        //if (Time.time > prevSearchTime + searchTargetCooldown)
+            attackTarget = FindNearestEnemy();
+        //attackTarget = null;
 
         _currentSpeed = 0;
 
