@@ -12,6 +12,8 @@ public class CameraControl : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        xRotation = transform.rotation.eulerAngles.x;
+        yRotation = transform.rotation.eulerAngles.y;
     }
 
     void Update()
