@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class ConfigSerializer : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class ConfigSerializer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SaveConfig();
+        //SaveConfig();
         LoadConfig();
     }
 
@@ -36,7 +37,8 @@ public class ConfigSerializer : MonoBehaviour
             {
                 serializedEntities[i] = entities[i].Serialize();
             }
-            writer.WriteLine(JsonHelper.ToJson(entities, true)); 
+            //writer.WriteLine(JsonHelper.ToJson(serializedEntities, true));
+            writer.WriteLine(JsonConvert.SerializeObject(serializedEntities, Formatting.Indented));
         }
     }
 
@@ -47,8 +49,17 @@ public class ConfigSerializer : MonoBehaviour
             using (StreamReader reader = new StreamReader("config.json"))
             {
                 string json = reader.ReadToEnd();
-                SerializedEntity[] serializedEntities = JsonHelper.FromJson<SerializedEntity>(json);
-                Debug.Log(serializedEntities.Length);
+                SerializedEntity[] serializedEntities = JsonConvert.DeserializeObject<SerializedEntity[]>(json);
+                foreach (var se in serializedEntities)
+                {
+                    for (int i = 0; i < entities.Length; i++)
+                    {
+                        if (entities[i].name.Equals(se.name))
+                        {
+                            entities[i].Deserialize(se);
+                        }
+                    }
+                }
             }
         }
         catch (FileNotFoundException e)

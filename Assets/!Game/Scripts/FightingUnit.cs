@@ -206,9 +206,9 @@ public class FightingUnit : Entity
         return serializedFightingUnit;
     }
 
-    public override void Deserialize(string json)
+    public override void Deserialize(SerializedEntity serializedEntity)
     {
-        SerializedFightingUnit serializedFightingUnit = JsonUtility.FromJson<SerializedFightingUnit>(json);
+        SerializedFightingUnit serializedFightingUnit = (SerializedFightingUnit)serializedEntity;
         _team = serializedFightingUnit.team;
         _attackDamage = serializedFightingUnit.attackDamage;
         _attackRange = serializedFightingUnit.attackRange;

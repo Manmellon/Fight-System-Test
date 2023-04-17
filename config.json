@@ -1,22 +1,48 @@
-{
-    "Items": [
-        {
-            "instanceID": 12654
-        },
-        {
-            "instanceID": 12656
-        },
-        {
-            "instanceID": 12658
-        },
-        {
-            "instanceID": 12660
-        },
-        {
-            "instanceID": 12652
-        },
-        {
-            "instanceID": 12680
-        }
-    ]
-}
+[
+  {
+    "team": 1,
+    "attackDamage": 10.0,
+    "attackRange": 0.5,
+    "attackCooldown": 1.0,
+    "name": "[Blue]Melee",
+    "movingSpeed": 1.0,
+    "maxHealth": 5.0
+  },
+  {
+    "team": 1,
+    "attackDamage": 1.0,
+    "attackRange": 5.0,
+    "attackCooldown": 1.0,
+    "name": "[Blue]Range",
+    "movingSpeed": 1.0,
+    "maxHealth": 3.0
+  },
+  {
+    "team": 0,
+    "attackDamage": 1.0,
+    "attackRange": 0.5,
+    "attackCooldown": 1.0,
+    "name": "[Red]Melee",
+    "movingSpeed": 1.0,
+    "maxHealth": 5.0
+  },
+  {
+    "team": 0,
+    "attackDamage": 1.0,
+    "attackRange": 5.0,
+    "attackCooldown": 1.0,
+    "name": "[Red]Range",
+    "movingSpeed": 1.0,
+    "maxHealth": 3.0
+  },
+  {
+    "name": "Rock",
+    "movingSpeed": 0.0,
+    "maxHealth": 10.0
+  },
+  {
+    "name": "Bullet[Projectile]",
+    "movingSpeed": 10.0,
+    "maxHealth": 0.0
+  }
+]

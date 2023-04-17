@@ -87,9 +87,8 @@ public class Entity : MonoBehaviour
         return serializedEntity;
     }
 
-    public virtual void Deserialize(string json)
+    public virtual void Deserialize(SerializedEntity serializedEntity)
     {
-        SerializedEntity serializedEntity = JsonUtility.FromJson<SerializedEntity>(json);
         _movingSpeed = serializedEntity.movingSpeed;
         _maxHealth = serializedEntity.maxHealth;
     }
