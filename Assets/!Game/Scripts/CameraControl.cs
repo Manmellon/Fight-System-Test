@@ -11,7 +11,7 @@ public class CameraControl : MonoBehaviour
 
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -32,7 +32,5 @@ public class CameraControl : MonoBehaviour
         yRotation += mouseX;
 
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
-
-        
     }
 }

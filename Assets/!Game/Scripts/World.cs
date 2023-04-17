@@ -28,6 +28,11 @@ public class World : MonoBehaviour
     [SerializeField] private List<Obstacle> obstaclePrefabs;
     [SerializeField] private Transform obstaclesParent;
 
+    [SerializeField] private int startUnitsCount = 20;
+
+    [SerializeField] private List<FightingUnit> unitsPrefabs;
+    [SerializeField] private Transform unitsParent;
+
     private Chunk[,] chunks;
 
     public static World singleton { get; private set; }
@@ -100,6 +105,8 @@ public class World : MonoBehaviour
 
         searchGrid = new StaticGrid(width, height);
 
+        List<Vector3> freePlacesForSpawn = new List<Vector3>();
+
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
@@ -110,8 +117,21 @@ public class World : MonoBehaviour
                 searchGrid.SetWalkableAt(j, i, !hasObstacle);
 
                 if (hasObstacle)
-                    Instantiate(obstaclePrefabs[UnityEngine.Random.Range(0, obstaclePrefabs.Count)], GridToWorld(new Vector2Int(j, i)), Quaternion.identity, obstaclesParent);
+                {
+                    Instantiate(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Count)], GridToWorld(new Vector2Int(j, i)), Quaternion.identity, obstaclesParent);
+                }
+                else
+                {
+                    freePlacesForSpawn.Add( GridToWorld(new Vector2Int(j, i)) );
+                }
             }
+        }
+
+        for (int i = 0; i < startUnitsCount; i++)
+        {
+            int place_idx = Random.Range(0, freePlacesForSpawn.Count);
+            Instantiate(unitsPrefabs[Random.Range(0, unitsPrefabs.Count)], freePlacesForSpawn[place_idx], Quaternion.identity, unitsParent);
+            freePlacesForSpawn.RemoveAt(place_idx);
         }
     }
 
