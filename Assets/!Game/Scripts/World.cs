@@ -74,7 +74,15 @@ public class World : MonoBehaviour
                 //Add to new chunk
                 foreach (var ep in updatedEntities)
                 {
-                    chunks[ep.gridPos.y, ep.gridPos.x].entities.Add(ep.entity);
+                    //If outside of world, kill entity
+                    if (ep.gridPos.x < 0 || ep.gridPos.x >= width || ep.gridPos.y < 0 || ep.gridPos.y >= height)
+                    {
+                        ep.entity.OnDeath();
+                    }
+                    else
+                    {
+                        chunks[ep.gridPos.y, ep.gridPos.x].entities.Add(ep.entity);
+                    }
                 }
             }
         }

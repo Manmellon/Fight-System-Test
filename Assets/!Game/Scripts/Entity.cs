@@ -22,7 +22,6 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float _currentHealth;
     public float CurHealth => _currentHealth;
 
-    // Start is called before the first frame update
     protected virtual void Start()
     {
         _currentHealth = _maxHealth;
@@ -30,10 +29,8 @@ public class Entity : MonoBehaviour
         World.singleton.AddEntity(this);
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
-        
     }
 
     protected virtual void FixedUpdate()
