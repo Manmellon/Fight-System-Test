@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EpPathFinding.cs;
 
+[Serializable]
 public class Chunk
 {
     public List<Entity> entities;
@@ -96,13 +98,13 @@ public class World : MonoBehaviour
         {
             for (int j = 0; j < width; j++)
             {
-                float r = Random.Range(0.0f, 1.0f);
+                float r = UnityEngine.Random.Range(0.0f, 1.0f);
                 bool hasObstacle = r < obstaclesDensity || obstaclesDensity >= 1.0f;
 
                 searchGrid.SetWalkableAt(j, i, !hasObstacle);
 
                 if (hasObstacle)
-                    Instantiate(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Count)], GridToWorld(j, i), Quaternion.identity);
+                    Instantiate(obstaclePrefabs[UnityEngine.Random.Range(0, obstaclePrefabs.Count)], GridToWorld(j, i), Quaternion.identity);
             }
         }
     }
@@ -186,6 +188,6 @@ public class World : MonoBehaviour
 
     public Vector2Int WorldToGrid(Vector3 pos)
     {
-        return new Vector2Int(Mathf.FloorToInt(pos.x - 0.5f + width / 2), Mathf.FloorToInt(pos.y - 0.5f + height / 2));
+        return new Vector2Int(Mathf.FloorToInt(pos.x - 0.5f + width / 2), Mathf.FloorToInt(pos.z - 0.5f + height / 2));
     }
 }
