@@ -32,6 +32,8 @@ public class FightingUnit : Entity
 
         attackTarget = FindNearestEnemy();
 
+        _currentSpeed = 0;
+
         if (attackTarget == null)
         {
             if (wayPoints.Count == 0)
@@ -39,6 +41,7 @@ public class FightingUnit : Entity
                 //Choose random destination
                 Vector2 randomPointInCircle = Random.insideUnitCircle * randomMovementRadius;
                 movementTarget = transform.position + new Vector3(randomPointInCircle.x, 0, randomPointInCircle.y);
+                movementTarget = World.singleton.GridToWorld(World.singleton.WorldToGrid(movementTarget));
                 wayPoints = GenerateWayPoints(movementTarget);
             }
         }
@@ -51,7 +54,6 @@ public class FightingUnit : Entity
                 transform.LookAt(attackTarget.transform);
                 TryAttack();
                 wayPoints.Clear();
-                _currentSpeed = 0;
                 return;
             }
             else
@@ -74,12 +76,16 @@ public class FightingUnit : Entity
         }
 
         transform.LookAt(currentMovementTarget);
-        _currentSpeed = _movingSpeed;
 
-        if (Vector3.Distance(transform.position, movementTarget) <= _stoppingDistance)
+        Vector2 my_2d_pos = new Vector2(transform.position.x, transform.position.z);
+        Vector2 target_2d_pos = new Vector2(currentMovementTarget.x, currentMovementTarget.z);
+        if (Vector2.Distance(my_2d_pos, target_2d_pos) <= _stoppingDistance)
         {
-            wayPoints.Clear();
+            wayPoints.RemoveAt(0);
+            return;
         }
+
+        _currentSpeed = _movingSpeed;
     }
 
     public void Init(int team)
@@ -142,7 +148,7 @@ public class FightingUnit : Entity
 
         foreach (var gp in gridPositions)
         {
-            result.Add( World.singleton.GridToWorld(gp.x, gp.y) );
+            result.Add( World.singleton.GridToWorld( new Vector2Int(gp.x, gp.y) ) );
         }
 
         return result;

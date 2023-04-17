@@ -110,7 +110,7 @@ public class World : MonoBehaviour
                 searchGrid.SetWalkableAt(j, i, !hasObstacle);
 
                 if (hasObstacle)
-                    Instantiate(obstaclePrefabs[UnityEngine.Random.Range(0, obstaclePrefabs.Count)], GridToWorld(j, i), Quaternion.identity, obstaclesParent);
+                    Instantiate(obstaclePrefabs[UnityEngine.Random.Range(0, obstaclePrefabs.Count)], GridToWorld(new Vector2Int(j, i)), Quaternion.identity, obstaclesParent);
             }
         }
     }
@@ -187,9 +187,9 @@ public class World : MonoBehaviour
         return entities;
     }
 
-    public Vector3 GridToWorld(int x, int y)
+    public Vector3 GridToWorld(Vector2Int gridPos)
     {
-        return new Vector3(x - width / 2 + 0.5f, 0, y - height / 2 + 0.5f);
+        return new Vector3(gridPos.x - width / 2 + 0.5f, 0, gridPos.y - height / 2 + 0.5f);
     }
 
     public Vector2Int WorldToGrid(Vector3 pos)

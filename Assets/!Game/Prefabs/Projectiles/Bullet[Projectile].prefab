@@ -97,7 +97,7 @@ MonoBehaviour:
   _animator: {fileID: 0}
   _deathParticles: {fileID: 0}
   _radius: 0.1
-  _movingSpeed: 4
+  _movingSpeed: 10
   _maxHealth: 0
   _currentHealth: 0
   _projectileDamage: 1
