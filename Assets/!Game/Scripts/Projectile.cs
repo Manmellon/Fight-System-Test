@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,8 +18,9 @@ public class Projectile : Entity
 
         foreach (var e in entities)
         {
-            if (e is FightingUnit fu && fu.Team == _owner.Team) continue;
             Debug.Log(e.name);
+            if (e is FightingUnit fu && fu.Team == _owner.Team) continue;
+            
             if (e.CurHealth > 0 && Vector3.Distance(e.transform.position, transform.position) <= e.Radius + Radius)
             {
                 e.DealDamage(_projectileDamage);

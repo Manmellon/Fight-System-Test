@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EpPathFinding.cs;
 
-[Serializable]
 public class Chunk
 {
     public List<Entity> entities;
@@ -121,6 +118,8 @@ public class World : MonoBehaviour
     {
         Vector2Int gridPos = WorldToGrid(entity.transform.position);
         chunks[gridPos.y, gridPos.x].entities.Add(entity);
+
+        Debug.Log("AddEntity: " + gridPos);
     }
 
     public void RemoveEntity(Entity entity)
@@ -196,6 +195,6 @@ public class World : MonoBehaviour
 
     public Vector2Int WorldToGrid(Vector3 pos)
     {
-        return new Vector2Int(Mathf.FloorToInt(pos.x - 0.5f + width / 2), Mathf.FloorToInt(pos.z - 0.5f + height / 2));
+        return new Vector2Int(Mathf.FloorToInt(pos.x + width / 2), Mathf.FloorToInt(pos.z + height / 2));
     }
 }
