@@ -124,9 +124,9 @@ public class FightingUnit : Entity
         Vector2Int gridPos = World.singleton.WorldToGrid(transform.position);
         Vector2Int targetGridPos = World.singleton.WorldToGrid(target);
 
-        Debug.Log("Generate way points: " + gridPos + " -> " + targetGridPos);
+        StaticGrid searchGrid = new StaticGrid(World.singleton.SearchGrid); //We need copy, because FindPath modify grid...
 
-        JumpPointParam jpParam = new JumpPointParam(World.singleton.SearchGrid, new GridPos(gridPos.x, gridPos.y), new GridPos(targetGridPos.x, targetGridPos.y), 
+        JumpPointParam jpParam = new JumpPointParam(searchGrid, new GridPos(gridPos.x, gridPos.y), new GridPos(targetGridPos.x, targetGridPos.y), 
                                                     EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.IfAtLeastOneWalkable);
         List<GridPos> gridPositions = JumpPointFinder.FindPath(jpParam);
 
