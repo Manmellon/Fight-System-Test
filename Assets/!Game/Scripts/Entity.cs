@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class SerializedEntity
 {
     public string name;
@@ -73,9 +75,22 @@ public class Entity : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void Serialize()
+    /*public virtual string Serialize()
     {
         SerializedEntity serializedEntity = new SerializedEntity(name, _movingSpeed, _maxHealth);
-        JsonUtility.ToJson(serializedEntity, true);
+        return JsonUtility.ToJson(serializedEntity, true);
+    }*/
+
+    public virtual SerializedEntity Serialize()
+    {
+        SerializedEntity serializedEntity = new SerializedEntity(name, _movingSpeed, _maxHealth);
+        return serializedEntity;
+    }
+
+    public virtual void Deserialize(string json)
+    {
+        SerializedEntity serializedEntity = JsonUtility.FromJson<SerializedEntity>(json);
+        _movingSpeed = serializedEntity.movingSpeed;
+        _maxHealth = serializedEntity.maxHealth;
     }
 }

@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272a01fff493e414aa37194e8cae4b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedEntities:
+  entities:
   - {fileID: 5940340394155064232, guid: b370588cc3d82614988944872c2d1669, type: 3}
   - {fileID: 7626355843292985044, guid: 62f6dfa4726b7294d933e2471a534bae, type: 3}
   - {fileID: 5940340394155064232, guid: 0b6892ec8899ffb4d83e9cf56aff79dd, type: 3}

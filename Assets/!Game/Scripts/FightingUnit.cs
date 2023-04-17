@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using EpPathFinding.cs;
 
+[Serializable]
 public class SerializedFightingUnit : SerializedEntity
 {
     public int team;
@@ -61,7 +63,7 @@ public class FightingUnit : Entity
             if (wayPoints.Count == 0)
             {
                 //Choose random destination
-                Vector2 randomPointInCircle = Random.insideUnitCircle * randomMovementRadius;
+                Vector2 randomPointInCircle = UnityEngine.Random.insideUnitCircle * randomMovementRadius;
                 movementTarget = transform.position + new Vector3(randomPointInCircle.x, 0, randomPointInCircle.y);
                 movementTarget = World.singleton.GridToWorld(World.singleton.WorldToGrid(movementTarget));
                 wayPoints = GenerateWayPoints(movementTarget);
@@ -192,9 +194,24 @@ public class FightingUnit : Entity
         base.OnDeath();
     }
 
-    public override void Serialize()
+    /*public override string Serialize()
     {
         SerializedFightingUnit serializedFightingUnit = new SerializedFightingUnit(name, _movingSpeed, _maxHealth, _team, _attackDamage, _attackRange, _attackCooldown);
-        JsonUtility.ToJson(serializedFightingUnit, true);
+        return JsonUtility.ToJson(serializedFightingUnit, true);
+    }*/
+
+    public override SerializedEntity Serialize()
+    {
+        SerializedFightingUnit serializedFightingUnit = new SerializedFightingUnit(name, _movingSpeed, _maxHealth, _team, _attackDamage, _attackRange, _attackCooldown);
+        return serializedFightingUnit;
+    }
+
+    public override void Deserialize(string json)
+    {
+        SerializedFightingUnit serializedFightingUnit = JsonUtility.FromJson<SerializedFightingUnit>(json);
+        _team = serializedFightingUnit.team;
+        _attackDamage = serializedFightingUnit.attackDamage;
+        _attackRange = serializedFightingUnit.attackRange;
+        _attackCooldown = serializedFightingUnit.attackCooldown;
     }
 }
