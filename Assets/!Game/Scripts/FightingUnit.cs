@@ -120,7 +120,7 @@ public class FightingUnit : Entity
         Entity result = null;
         float minDistance = 1_000_000_000;
 
-        List<Entity> entities = World.singleton.GetAllEntities();
+        /*List<Entity> entities = World.singleton.GetAllEntities();
 
         foreach (var e in entities)
         {
@@ -129,6 +129,16 @@ public class FightingUnit : Entity
                 )
             {
                 result = e;
+                minDistance = Vector3.Distance(transform.position, result.transform.position);
+            }
+        }*/
+
+        List<FightingUnit> fightingUnits = World.singleton.GetFightingUnits(_team == 0 ? 1 : 0);
+        foreach (var fu in fightingUnits)
+        {
+            if (result == null || Vector3.Distance(transform.position, fu.transform.position) < minDistance)
+            {
+                result = fu;
                 minDistance = Vector3.Distance(transform.position, result.transform.position);
             }
         }
@@ -160,5 +170,12 @@ public class FightingUnit : Entity
     public virtual bool IsAggro()
     {
         return Vector3.Distance(transform.position, movementTarget) <= _attackRange;
+    }
+
+    public override void OnDeath()
+    {
+        World.singleton.RemoveFightingUnit(this);
+
+        base.OnDeath();
     }
 }

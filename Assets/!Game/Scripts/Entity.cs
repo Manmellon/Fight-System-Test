@@ -47,7 +47,7 @@ public class Entity : MonoBehaviour
             OnDeath();
     }
 
-    public void OnDeath()
+    public virtual void OnDeath()
     {
         if (_animator)
             _animator.Play("Death");

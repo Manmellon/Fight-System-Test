@@ -33,6 +33,8 @@ public class World : MonoBehaviour
     [SerializeField] private List<FightingUnit> unitsPrefabs;
     [SerializeField] private Transform unitsParent;
 
+    private List<List<FightingUnit>> spawnedUnits = new List<List<FightingUnit>>();
+
     private Chunk[,] chunks;
 
     public static World singleton { get; private set; }
@@ -127,12 +129,22 @@ public class World : MonoBehaviour
             }
         }
 
+        for (int t = 0; t < 2; t++)
+        {
+            spawnedUnits.Add(new List<FightingUnit>());
+        }
+
         for (int i = 0; i < startUnitsCount; i++)
         {
             int place_idx = Random.Range(0, freePlacesForSpawn.Count);
-            Instantiate(unitsPrefabs[Random.Range(0, unitsPrefabs.Count)], freePlacesForSpawn[place_idx], Quaternion.identity, unitsParent);
+            int unitPrefabIdx = Random.Range(0, unitsPrefabs.Count);
+            int team = unitsPrefabs[unitPrefabIdx].Team;
+
+            spawnedUnits[team].Add(Instantiate(unitsPrefabs[unitPrefabIdx], freePlacesForSpawn[place_idx], Quaternion.identity, unitsParent));
+
             freePlacesForSpawn.RemoveAt(place_idx);
         }
+
     }
 
     public void AddEntity(Entity entity)
@@ -165,6 +177,27 @@ public class World : MonoBehaviour
         }
 
         return entities;
+    }
+
+    public void RemoveFightingUnit(FightingUnit fightingUnit)
+    {
+        spawnedUnits[fightingUnit.Team].Remove(fightingUnit);
+    }
+
+    public List<FightingUnit> GetFightingUnits(int team = -1)
+    {
+        if (team > spawnedUnits.Count) return null;
+
+        if (team < 0)
+        {
+            List<FightingUnit> result = new List<FightingUnit>();
+            foreach (var t in spawnedUnits)
+            {
+                result.AddRange(t);
+            }
+            return result;
+        }
+        else return spawnedUnits[team];
     }
 
     //Get entities from current chunk, and all neighbours chunks
