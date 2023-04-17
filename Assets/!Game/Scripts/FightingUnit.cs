@@ -207,6 +207,7 @@ public class FightingUnit : Entity
     }
 
     public override void Deserialize(SerializedEntity serializedEntity)
+    //public void Deserialize(SerializedFightingUnit serializedFightingUnit)
     {
         SerializedFightingUnit serializedFightingUnit = (SerializedFightingUnit)serializedEntity;
         _team = serializedFightingUnit.team;

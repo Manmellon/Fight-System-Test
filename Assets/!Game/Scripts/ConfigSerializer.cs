@@ -9,6 +9,8 @@ public class ConfigSerializer : MonoBehaviour
 {
     [SerializeField] Entity[] entities;
 
+    private JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,7 @@ public class ConfigSerializer : MonoBehaviour
                 serializedEntities[i] = entities[i].Serialize();
             }
             //writer.WriteLine(JsonHelper.ToJson(serializedEntities, true));
-            writer.WriteLine(JsonConvert.SerializeObject(serializedEntities, Formatting.Indented));
+            writer.WriteLine(JsonConvert.SerializeObject(serializedEntities, Formatting.Indented, settings));
         }
     }
 
@@ -49,7 +51,7 @@ public class ConfigSerializer : MonoBehaviour
             using (StreamReader reader = new StreamReader("config.json"))
             {
                 string json = reader.ReadToEnd();
-                SerializedEntity[] serializedEntities = JsonConvert.DeserializeObject<SerializedEntity[]>(json);
+                SerializedEntity[] serializedEntities = JsonConvert.DeserializeObject<SerializedEntity[]>(json, settings);
                 foreach (var se in serializedEntities)
                 {
                     for (int i = 0; i < entities.Length; i++)
