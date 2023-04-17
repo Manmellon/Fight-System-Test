@@ -231,7 +231,7 @@ MonoBehaviour:
   _deathParticles: {fileID: 0}
   _radius: 0.25
   _movingSpeed: 1
-  _maxHealth: 3
+  _maxHealth: 5
   _currentHealth: 3
   _team: 0
   _attackCooldown: 1

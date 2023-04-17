@@ -8,16 +8,16 @@ public class FightingUnit : Entity
     public int Team => _team;
 
     [SerializeField] protected float _attackCooldown;
-    [SerializeField] protected float _prevAttackTime;
+    protected float _prevAttackTime;
 
     [SerializeField] protected float _attackRange;
 
     [SerializeField] protected float randomMovementRadius = 5;
 
-    [SerializeField] protected Entity attackTarget;
-    [SerializeField] protected Vector3 movementTarget;
+    protected Entity attackTarget;
+    protected Vector3 movementTarget;
 
-    [SerializeField] protected List<Vector3> wayPoints = new List<Vector3>();
+    protected List<Vector3> wayPoints = new List<Vector3>();
 
     [SerializeField] protected float _stoppingDistance = 0.1f;
 

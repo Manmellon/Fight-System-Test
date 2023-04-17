@@ -19,7 +19,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float _maxHealth;
     public float MaxHealth => _maxHealth;
 
-    [SerializeField] protected float _currentHealth;
+    protected float _currentHealth;
     public float CurHealth => _currentHealth;
 
     protected virtual void Start()
