@@ -37,7 +37,6 @@ public class FightingUnit : Entity
         base.Update();
 
         attackTarget = FindNearestEnemy();
-        //attackTarget = null;
 
         _currentSpeed = 0;
 

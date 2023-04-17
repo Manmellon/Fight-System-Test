@@ -323,8 +323,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15.42, z: -26.49}
+  m_LocalRotation: {x: -0.3887777, y: -0.002801811, z: 0.0011558434, w: -0.9213266}
+  m_LocalPosition: {x: -1.0316337, y: 41.453823, z: -66.6782}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -411,6 +411,7 @@ MonoBehaviour:
   obstaclePrefabs:
   - {fileID: -8632311258149431227, guid: 9240d835dd91fe747b6edc26cad15ae7, type: 3}
   obstaclesParent: {fileID: 482179012}
+  startUnitsCount: 20
   unitsPrefabs:
   - {fileID: 5940340394155064232, guid: b370588cc3d82614988944872c2d1669, type: 3}
   - {fileID: 7626355843292985044, guid: 62f6dfa4726b7294d933e2471a534bae, type: 3}
