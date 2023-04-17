@@ -14,14 +14,13 @@ public class Projectile : Entity
         Vector2Int gridPos = World.singleton.WorldToGrid(transform.position);
         List<Entity> entities = World.singleton.GetNearestEntites(gridPos.x, gridPos.y);
 
-        Debug.Log(gridPos + ": " + entities.Count);
-
         foreach (var e in entities)
         {
-            Debug.Log(e.name);
             if (e is FightingUnit fu && fu.Team == _owner.Team) continue;
-            
-            if (e.CurHealth > 0 && Vector3.Distance(e.transform.position, transform.position) <= e.Radius + Radius)
+
+            Vector2 my_2d_pos = new Vector2(transform.position.x, transform.position.z);
+            Vector2 e_2d_pos = new Vector2(e.transform.position.x, e.transform.position.z);
+            if (e.CurHealth > 0 && Vector2.Distance(my_2d_pos, e_2d_pos) <= e.Radius + Radius)
             {
                 e.DealDamage(_projectileDamage);
                 OnDeath();

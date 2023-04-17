@@ -26,6 +26,7 @@ public class World : MonoBehaviour
     [SerializeField] private float obstaclesDensity = 0.1f;
 
     [SerializeField] private List<Obstacle> obstaclePrefabs;
+    [SerializeField] private Transform obstaclesParent;
 
     private Chunk[,] chunks;
 
@@ -53,7 +54,7 @@ public class World : MonoBehaviour
                 for (int k = 0; k < chunks[i, j].entities.Count; k++)
                 {
                     Vector2Int gridPos = WorldToGrid(chunks[i, j].entities[k].transform.position);
-                    if (gridPos.x != j && gridPos.y != i)
+                    if (gridPos.x != j || gridPos.y != i)
                     {
                         EntityWithPos ep = new EntityWithPos();
                         ep.entity = chunks[i, j].entities[k];
@@ -109,7 +110,7 @@ public class World : MonoBehaviour
                 searchGrid.SetWalkableAt(j, i, !hasObstacle);
 
                 if (hasObstacle)
-                    Instantiate(obstaclePrefabs[UnityEngine.Random.Range(0, obstaclePrefabs.Count)], GridToWorld(j, i), Quaternion.identity);
+                    Instantiate(obstaclePrefabs[UnityEngine.Random.Range(0, obstaclePrefabs.Count)], GridToWorld(j, i), Quaternion.identity, obstaclesParent);
             }
         }
     }
@@ -118,8 +119,6 @@ public class World : MonoBehaviour
     {
         Vector2Int gridPos = WorldToGrid(entity.transform.position);
         chunks[gridPos.y, gridPos.x].entities.Add(entity);
-
-        Debug.Log("AddEntity: " + gridPos);
     }
 
     public void RemoveEntity(Entity entity)
