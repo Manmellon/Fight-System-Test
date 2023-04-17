@@ -75,12 +75,6 @@ public class Entity : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /*public virtual string Serialize()
-    {
-        SerializedEntity serializedEntity = new SerializedEntity(name, _movingSpeed, _maxHealth);
-        return JsonUtility.ToJson(serializedEntity, true);
-    }*/
-
     public virtual SerializedEntity Serialize()
     {
         SerializedEntity serializedEntity = new SerializedEntity(name, _movingSpeed, _maxHealth);

@@ -194,12 +194,6 @@ public class FightingUnit : Entity
         base.OnDeath();
     }
 
-    /*public override string Serialize()
-    {
-        SerializedFightingUnit serializedFightingUnit = new SerializedFightingUnit(name, _movingSpeed, _maxHealth, _team, _attackDamage, _attackRange, _attackCooldown);
-        return JsonUtility.ToJson(serializedFightingUnit, true);
-    }*/
-
     public override SerializedEntity Serialize()
     {
         SerializedFightingUnit serializedFightingUnit = new SerializedFightingUnit(name, _movingSpeed, _maxHealth, _team, _attackDamage, _attackRange, _attackCooldown);
@@ -207,7 +201,6 @@ public class FightingUnit : Entity
     }
 
     public override void Deserialize(SerializedEntity serializedEntity)
-    //public void Deserialize(SerializedFightingUnit serializedFightingUnit)
     {
         SerializedFightingUnit serializedFightingUnit = (SerializedFightingUnit)serializedEntity;
         _team = serializedFightingUnit.team;

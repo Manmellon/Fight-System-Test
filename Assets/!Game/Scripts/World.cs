@@ -249,4 +249,9 @@ public class World : MonoBehaviour
     {
         return new Vector2Int(Mathf.FloorToInt(pos.x + width / 2), Mathf.FloorToInt(pos.z + height / 2));
     }
+
+    public int GetAliveUnitsCount(int team)
+    {
+        return spawnedUnits[team].Count;
+    }
 }
