@@ -24,7 +24,7 @@ public class FightingUnit : Entity
 
     [SerializeField] protected float _stoppingDistance = 0.1f;
 
-    private float searchTargetCooldown = 10.0f;
+    private float searchTargetCooldown = 1.0f;
     private float prevSearchTime;
 
     protected override void Start()
@@ -36,8 +36,7 @@ public class FightingUnit : Entity
     {
         base.Update();
 
-        //if (Time.time > prevSearchTime + searchTargetCooldown)
-            attackTarget = FindNearestEnemy();
+        attackTarget = FindNearestEnemy();
         //attackTarget = null;
 
         _currentSpeed = 0;
@@ -67,7 +66,12 @@ public class FightingUnit : Entity
             else
             {
                 //Move to enemy
-                wayPoints = GenerateWayPoints(movementTarget);
+                //Regenerate way costs too much, so we will do it with cooldown
+                if (Time.time > prevSearchTime + searchTargetCooldown)
+                {
+                    prevSearchTime = Time.time;
+                    wayPoints = GenerateWayPoints(movementTarget);
+                }
             }
         }
 
