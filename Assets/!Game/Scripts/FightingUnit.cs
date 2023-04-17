@@ -117,26 +117,15 @@ public class FightingUnit : Entity
 
     public Entity FindNearestEnemy()
     {
+        List<FightingUnit> fightingUnits = World.singleton.GetFightingUnits(_team == 0 ? 1 : 0);
+        if (fightingUnits == null) return null;
+
         Entity result = null;
         float minDistance = 1_000_000_000;
 
-        /*List<Entity> entities = World.singleton.GetAllEntities();
-
-        foreach (var e in entities)
-        {
-            if (e is FightingUnit fu && fu.Team != Team && 
-                (result == null || Vector3.Distance(transform.position, e.transform.position) < minDistance) 
-                )
-            {
-                result = e;
-                minDistance = Vector3.Distance(transform.position, result.transform.position);
-            }
-        }*/
-
-        List<FightingUnit> fightingUnits = World.singleton.GetFightingUnits(_team == 0 ? 1 : 0);
         foreach (var fu in fightingUnits)
         {
-            if (result == null || Vector3.Distance(transform.position, fu.transform.position) < minDistance)
+            if (Vector3.Distance(transform.position, fu.transform.position) < minDistance)
             {
                 result = fu;
                 minDistance = Vector3.Distance(transform.position, result.transform.position);
