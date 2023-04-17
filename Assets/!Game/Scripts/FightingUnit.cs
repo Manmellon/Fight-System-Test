@@ -2,6 +2,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using EpPathFinding.cs;
 
+public class SerializedFightingUnit : SerializedEntity
+{
+    public int team;
+    public float attackDamage;
+    public float attackRange;
+    public float attackCooldown;
+
+    public SerializedFightingUnit(string name, float movingSpeed, float maxHealth, int team, float attackDamage, float attackRange, float attackCooldown) : base(name, movingSpeed, maxHealth)
+    {
+        this.team = team;
+        this.attackDamage = attackDamage;
+        this.attackRange = attackRange;
+        this.attackCooldown = attackCooldown;
+    }
+}
+
 public class FightingUnit : Entity
 {
     [SerializeField] protected int _team;
@@ -174,5 +190,11 @@ public class FightingUnit : Entity
         World.singleton.RemoveFightingUnit(this);
 
         base.OnDeath();
+    }
+
+    public override void Serialize()
+    {
+        SerializedFightingUnit serializedFightingUnit = new SerializedFightingUnit(name, _movingSpeed, _maxHealth, _team, _attackDamage, _attackRange, _attackCooldown);
+        JsonUtility.ToJson(serializedFightingUnit, true);
     }
 }

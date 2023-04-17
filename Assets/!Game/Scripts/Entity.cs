@@ -1,5 +1,19 @@
 using UnityEngine;
 
+public class SerializedEntity
+{
+    public string name;
+    public float movingSpeed;
+    public float maxHealth;
+
+    public SerializedEntity(string name, float movingSpeed, float maxHealth)
+    {
+        this.name = name;
+        this.movingSpeed = movingSpeed;
+        this.maxHealth = maxHealth;
+    }
+}
+
 public class Entity : MonoBehaviour
 {
     [Header("Components")]
@@ -57,5 +71,11 @@ public class Entity : MonoBehaviour
 
         World.singleton.RemoveEntity(this);
         Destroy(gameObject);
+    }
+
+    public virtual void Serialize()
+    {
+        SerializedEntity serializedEntity = new SerializedEntity(name, _movingSpeed, _maxHealth);
+        JsonUtility.ToJson(serializedEntity, true);
     }
 }
